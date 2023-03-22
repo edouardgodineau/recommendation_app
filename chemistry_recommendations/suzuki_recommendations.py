@@ -2,10 +2,10 @@ import bigtree as bt
 import streamlit as st
 from chemistry_recommendations.data_prep import Recommendation
 
+
 file_path = "chemistry_recommendations/Recommendations.xlsx"
-
-
 sheetname = "Suzuki_App_"
+
 # # Load data for the reaction class and build the recommendations
 suzuki = Recommendation(file_path, sheetname)
 
