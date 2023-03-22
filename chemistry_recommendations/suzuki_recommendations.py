@@ -1,16 +1,8 @@
-import pprint
-
-import bigtree as bt
 import bigtree as bt
 import streamlit as st
+from chemistry_recommendations.data_prep import Recommendation
 
-#need to use Chemistry_recommendations.Utils.[filename] to make it work in pycharm
-# from Chemistry_recommendations.Utils.data_prep import Recommendation
-# file_path = "Recommendations.xlsx"
-
-#need to use Utils.[filename] to get the app to work within streamlit
-from Utils.data_prep import Recommendation
-file_path = "Utils/Recommendations.xlsx"
+file_path = "chemistry_recommendations/Recommendations.xlsx"
 
 
 sheetname = "Suzuki_App_"
@@ -22,15 +14,16 @@ suzuki = Recommendation(file_path, sheetname)
 suzuki.build_nodes()
 suzuki.build_recommendation()
 suzuki_dict = suzuki.build_dict4tree()
-# # Build the tree for the reaction class
 
+# Build the tree for the reaction class
 root_suzuki = bt.dict_to_tree(suzuki_dict)
 
 def show_page():
 
     # Define custom CSS styles
-    st.write("<h1>Recommended methods to perform Suzuki Cross couplings</h1>", unsafe_allow_html = True)
 
+    
+    st.write("<h1>Recommended methods to perform Suzuki Cross couplings</h1>", unsafe_allow_html = True)
 
     standard_conditions = root_suzuki.node_name
 
