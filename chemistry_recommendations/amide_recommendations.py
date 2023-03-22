@@ -1,13 +1,8 @@
 import bigtree as bt
 from bigtree import print_tree
 import streamlit as st
-import pprint
-#need to use Chemistry_recommendations.Utils.[filename] to make it work in pycharm
-# from Chemistry_recommendations.Utils.data_prep import Recommendation
-# file_path = "Recommendations.xlsx"
 
-#need to use Utils.[filename] to get the app to work within streamlit
-from Utils.data_prep import Recommendation
+from chemistry_recommendations.data_prep import Recommendation
 
 file_path = "Utils/Recommendations.xlsx"
 sheetname = "Amide_coupling_App_"
