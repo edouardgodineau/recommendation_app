@@ -1,10 +1,9 @@
 import bigtree as bt
 import streamlit as st
 import pprint
-
-
-#need to use Utils.[filename] to get the app to work within streamlit
 from chemistry_recommendations.data_prep import Recommendation
+
+
 file_path = "chemistry_recommendations/Recommendations.xlsx"
 sheetname = "Cyanation_App_"
 
@@ -15,12 +14,6 @@ cyanation.build_recommendation()
 # Build the tree for the reaction class
 cyanation.build_dict4tree()
 root_cyanation = bt.dict_to_tree(cyanation.leaves)
-
-
-
-
-
-
 
 
 def show_page():
