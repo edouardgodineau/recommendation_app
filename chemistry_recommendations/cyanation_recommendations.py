@@ -1,13 +1,11 @@
 import bigtree as bt
 import streamlit as st
 import pprint
-#need to use Chemistry_recommendations.Utils.[filename] to make it work in pycharm
-# from Chemistry_recommendations.Utils.data_prep import Recommendation
-# file_path = "Recommendations.xlsx"
+
 
 #need to use Utils.[filename] to get the app to work within streamlit
-from Utils.data_prep import Recommendation
-file_path = "Utils/Recommendations.xlsx"
+from chemistry_recommendations.data_prep import Recommendation
+file_path = "chemistry_recommendations/Recommendations.xlsx"
 sheetname = "Cyanation_App_"
 
 cyanation = Recommendation(file_path, sheetname)
