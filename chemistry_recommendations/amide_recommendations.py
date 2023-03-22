@@ -4,7 +4,7 @@ import streamlit as st
 
 from chemistry_recommendations.data_prep import Recommendation
 
-file_path = "Utils/Recommendations.xlsx"
+file_path = "chemistry_recommendations/Recommendations.xlsx"
 sheetname = "Amide_coupling_App_"
 
 amide = Recommendation(file_path, sheetname)
