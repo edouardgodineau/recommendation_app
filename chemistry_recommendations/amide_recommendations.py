@@ -1,8 +1,8 @@
 import bigtree as bt
-from bigtree import print_tree
 import streamlit as st
-
 from chemistry_recommendations.data_prep import Recommendation
+from streamlit_extras.switch_page_button import switch_page
+
 
 file_path = "chemistry_recommendations/Recommendations.xlsx"
 sheetname = "Amide_coupling_App_"
@@ -22,77 +22,121 @@ root_amide = bt.dict_to_tree(amide.leaves)
 def show_page():
 
     # Define custom CSS styles
-    st.write("<h1>Recommended methods to prepare amides</h1>", unsafe_allow_html = True)
+    with open('chemistry_recommendations/style.css') as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        button1 = st.button('tips and tricks')
+    with col2:
+        button2 = st.button('Experimental Protocols')
+    with col3:
+        button3 = st.button('contact us')
 
 
-    standard_conditions = root_amide.node_name
+    if button2:
 
-    st.write(f'For carboxylic acid which {standard_conditions} the following condition(s) are recommended:')
-
-    results = bt.find(root_amide, lambda node: node.name == standard_conditions)
-
-    # print best conditions (up to 3 conditions are returned)
-    for i in range(1,4):
-        i = str(i)
-        item = results.get_attr(i)
-        if item:
-            with st.container():
-
-                #print the recommendation for the reaction class
-                st.markdown(f'{i} | {item.get("recommendation")}')
-                # print(f'{i} | {item.get("recommendation")}')
-
-                #print_additionnal_info(item) when it is available
-                if item['ELN'] != '':
-                    st.markdown(f"ELN reference: {item.get('ELN')}")
-                else:
-                    st.markdown("We unfortunately don't have any ELN reference to recommend. We are working on it!")
-                if item.get('comments') != '':
-                    st.markdown(f"Comment: {item.get('comments')}")
-                if item.get('reference') != '':
-                    st.markdown(f"Reference: [{item.get('reference')}]({item.get('link')})")
+        header = "Recommended methods to prepare amides"
+        st.write(f'<h1 class="header_page">{header}</h1>', unsafe_allow_html=True)
 
 
+        standard_conditions = root_amide.node_name
 
-    # print('Standard conditions did not work because the carboxylic acid (choose from the list below):')
-    alternatives = [i.name for i in root_amide.children]
+        subheader = f'For carboxylic acid which {standard_conditions} the following condition(s) are recommended:'
+        st.write(f'<div class="normal_page_text">{subheader}</div>', unsafe_allow_html=True)
 
-    st.markdown("---")
-    label_text = '<span style="font-size: 16px; font-weight: bold;">The standard conditions did not work because the carboxylic acid:</span>'
+        results = bt.find(root_amide, lambda node: node.name == standard_conditions)
 
-    container_style = 'display: flex; flex-direction: column; align-items: flex-start;'
+        # print best conditions (up to 3 conditions are returned)
+        for i in range(1,4):
+            i = str(i)
+            item = results.get_attr(i)
+            if item:
+                with st.container():
 
-    st.markdown(f'<div style="{container_style}">{label_text}', unsafe_allow_html=True)
-
-    problem = st.selectbox(' ', ['Please choose an option'] + alternatives)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    for alternative in alternatives:
-        if alternative == problem:
-            st.write(f"For a carboxylic acid which {alternative}, here are alternative conditions which are recommended:")
-            results = bt.find(root_amide, lambda node: node.name == alternative)
-            for i in range(1, 4):
-                i = str(i)
-                item = results.get_attr(i)
-                if item:
                     with st.container():
 
                         # print the recommendation for the reaction class
-                        st.markdown(f'{i} | {item.get("recommendation")}')
+                        st.markdown(f'<h1 class="container">{i} | {item.get("recommendation")}</h1>',
+                                    unsafe_allow_html=True)
 
+                        # print_additionnal_info(item) when it is available
                         if item['ELN'] != '':
-                            st.markdown(f"ELN reference: {item.get('ELN')}")
+                            st.markdown(f'<div class="additionnal_info">ELN reference: {item.get("ELN")}</div>',
+                                        unsafe_allow_html=True)
                         else:
-                            st.markdown("We unfortunately don't have any ELN reference to recommend. We are working on it!")
-
+                            st.markdown(
+                                f'<div class="additionnal_info">{"We unfortunately do not have any ELN reference to recommend. We are working on it!"}</div>',
+                                unsafe_allow_html=True)
                         if item.get('comments') != '':
-                            st.markdown(f"Comment: {item.get('comments')}")
-
+                            st.markdown(f'<div class="additionnal_info">Comment: {item.get("comments")}</div>',
+                                        unsafe_allow_html=True)
                         if item.get('reference') != '':
-                            st.markdown(f"Reference: [{item.get('reference')}]({item.get('link')})")
-                        st.markdown("---")
+                            st.markdown(
+                                f'<div id="additionnal_info"><a href={item.get("link")} float:left target="_blank">Reference: {item.get("reference")}</a></div>',
+                                unsafe_allow_html=True)
 
 
+        alternatives = [i.name for i in root_amide.children]
 
-# show_page()
-# print('amide_page', __name__)
+        st.markdown("---")
+
+        label_text = "The standard conditions did not work because the carboxylic acid:"
+
+        st.markdown(f'<div class="normal_page_text">{label_text}</div>', unsafe_allow_html=True)
+
+        problem = st.selectbox(' ', ['Please choose an option'] + alternatives)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        for alternative in alternatives:
+            if alternative == problem:
+                st.write(f"For a carboxylic acid which {alternative}, here are alternative conditions which are recommended:")
+                results = bt.find(root_amide, lambda node: node.name == alternative)
+                for i in range(1, 4):
+                    i = str(i)
+                    item = results.get_attr(i)
+                    if item:
+                        with st.container():
+
+                            # print the recommendation for the reaction class
+                            st.markdown(f'<h1 class="container">{i} | {item.get("recommendation")}</h1>',
+                                        unsafe_allow_html=True)
+
+                            # print_additionnal_info(item) when it is available
+                            if item['ELN'] != '':
+                                st.markdown(f'<div class="additionnal_info">ELN reference: {item.get("ELN")}</div>',
+                                            unsafe_allow_html=True)
+                            else:
+                                st.markdown(
+                                    f'<div class="additionnal_info">{"We unfortunately do not have any ELN reference to recommend. We are working on it!"}</div>',
+                                    unsafe_allow_html=True)
+                            if item.get('comments') != '':
+                                st.markdown(f'<div class="additionnal_info">Comment: {item.get("comments")}</div>',
+                                            unsafe_allow_html=True)
+                            if item.get('reference') != '':
+                                st.markdown(
+                                    f'<div id="additionnal_info"><a href={item.get("link")} float:left target="_blank">Reference: {item.get("reference")}</a></div>',
+                                    unsafe_allow_html=True)
+                            st.markdown("---")
+
+    if button1:
+        with st.expander("Tips and tricks"):
+            image1_1 = "chemistry_recommendations/images/image1_2.png"
+            image2_1 = "chemistry_recommendations/images/image2_1.png"
+            with st.container():
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.markdown('coupling agent')
+                with col2:
+                    st.markdown('Structure')
+                with col3:
+                    st.markdown('Expected side product(s)')
+            with st.container():
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.markdown('T3P')
+                with col2:
+                    st.image(open(image1_1, "rb").read(), width=200, output_format="PNG")
+                with col3:
+                    st.image(open(image2_1, "rb").read(), width=200, output_format="PNG")
+
