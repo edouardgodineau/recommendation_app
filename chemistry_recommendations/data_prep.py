@@ -86,3 +86,35 @@ class Recommendation:
 
             self.leaves[node] = list_of_recommendations
         return self.leaves
+
+
+@dataclass
+class Tips():
+    file_path: str
+    sheetname: str
+    data: pd.DataFrame = field(init=False)
+    tips: pd.Series = field(init=False)
+    tips_unique = None
+
+    def __post_init__(self):
+        self.data = pd.read_excel(io=self.file_path, sheet_name=self.sheetname)
+        # self.tips_dict = self.data.to_dict(orient='records', na='omit')
+        self.tips_dict = [{k: v for k, v in m.items() if pd.notnull(v)} for m in self.data.to_dict(orient='records')]
+        # self.tips = self.data['tip']
+        return self.tips_dict
+# file_path = r"C:\Users\u539875\OneDrive - Syngenta\Documents\GitHub\recommendation_app\chemistry_recommendations\Recommendations.xlsx"
+# sheetname = "Amide_tips_"
+#
+# tips = Tips(file_path, sheetname).tips_dict
+#
+# for i in tips:
+#     tip = []
+#     for k,v in i.items():
+#         tip.append(v)
+#     print(tip)
+#     for j in tip:
+#
+#
+# print()
+#
+#     # print(i.items())
