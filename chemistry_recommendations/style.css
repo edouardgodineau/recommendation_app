@@ -10,6 +10,13 @@ h1.header_page {
     margin-top:0;
 }
 
+.css-gws64t.e1fqkh3o5 {
+    color:white;
+}
+
+.css-1u5kwm1.e1fqkh3o5 {
+    color:white;
+}
 
 .css-1y4p8pa {
     color: #5A6C80;
@@ -23,7 +30,7 @@ h1.header_page {
     margin-top:0;
 }
 
-
+"this styles the rounded boxes on the App page"
 section.css-vk3wp9.e1fqkh3o11 {
   background-color: #5F7800;
   border-radius: 5px;
@@ -33,7 +40,7 @@ section.css-vk3wp9.e1fqkh3o11 {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
-
+"this controls the style of the sidebar"
 div.css-1nm2qww.e1fqkh3o2 {
     background-color: #5F7800;
     border-radius: 5px;
@@ -42,6 +49,12 @@ div.css-1nm2qww.e1fqkh3o2 {
     padding: 0;
     margin-right: 0;
     margin-top:0;
+}
+
+"this controls the style of the X button of the sidebar"
+div.css-173clwd.e1fqkh3o2 {
+    color:white;
+
 }
 
 
@@ -193,6 +206,8 @@ a:hover {
 #additionnal_info a:link {
     color: #A6A6A6;
     background-color: transparent;
+    border-color: #5F7800;
+    border-width: 4px;
     font-size: 16px;
     font-weight: normal;
     padding-top: 3px;
@@ -212,7 +227,7 @@ a:hover {
     text-decoration: none;
 }
 
-
+"this controls the top buttons on the page, and the way they behave on hover and visited"
 #additionnal_info a:hover {
     color: #FFB53C;
     background-color: transparent;
@@ -226,12 +241,9 @@ a:hover {
 
 div.stButton > button {
     background-color: white;
-    border: 5px;
-    border-color: #5F7800;
     color: #5F7800;
     padding: 15px 32px;
     text-align: center;
-    /*text-decoration: none;*/
     display: inline-block;
     font-size: 20px;
     font-weight: bold;
@@ -246,12 +258,9 @@ div.stButton > button {
 
 div.stButton > button:hover {
     background-color: #5F7800;
-    border: 5px;
-    border-color: #5F7800;
     color: white;
     padding: 15px 32px;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
@@ -264,9 +273,7 @@ div.stButton > button:hover {
 }
 
 div.stButton >button:active {
-    background-color: #FFB53C;
-    border: 5px;
-    border-color: #FFB53C;
+    background-color: #AFCB74;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -283,8 +290,6 @@ div.stButton >button:active {
 
 div.stButton >button:visited {
     background-color: #FFB53C;
-    border: 5px;
-    border-color: #FFB53C;
     color: #FFB53C;
     padding: 15px 32px;
     text-align: center;
@@ -297,4 +302,12 @@ div.stButton >button:visited {
     margin-bottom: 20px;
     margin-left: 0;
     margin-right: 0;
+}
+
+
+
+"this css controls the styling of the sidebar"
+div.css-79elbk.e1fqkh3o10 {
+    background-color: #FFB53C;
+    border-color: darkgreen;
 }
